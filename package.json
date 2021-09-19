@@ -10,6 +10,7 @@
     "test": "ng test"
   },
   "private": true,
+  "proxy": "https://appydexbackgm.herokuapp.com/api/user",
   "dependencies": {
     "@angular/animations": "~12.2.0",
     "@angular/common": "~12.2.0",

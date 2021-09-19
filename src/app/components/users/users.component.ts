@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit, OnChanges {
   //
   userForm!: FormGroup;
   loading = false;
+  loadingData = false
   submitted = false;
 
   constructor(public usersService: UsersService, private router: Router, private toastr: ToastrService,
@@ -47,6 +48,7 @@ export class UsersComponent implements OnInit, OnChanges {
   onSubmit() {
     this.submitted = true;
     this.loading = true;
+    this.loadingData = true;
     //
     // stop here if form is invalid
     if (this.userForm.invalid) {
@@ -59,6 +61,7 @@ export class UsersComponent implements OnInit, OnChanges {
   onReset() {
     this.submitted = false;
     this.loading = false;
+    this.loadingData = false;
     this.usersService.selectUser = new userModel();
     this.userForm.controls['name_user'].enable({onlySelf: true});
     this.userForm.controls['email_user'].enable({onlySelf: true});
@@ -68,15 +71,18 @@ export class UsersComponent implements OnInit, OnChanges {
   // Función asincrona para obtener el listado de los usuarios
   async getUsers() {
     try {
+      this.loadingData = true;
       let response = await this.usersService.getUsers();
       let dataReturn = await response.json()
       this.Users = dataReturn.data;
       console.log('Users: ', this.Users);
+      this.loadingData = false;
       this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
         timeOut: 10000,
         positionClass: 'toast-bottom-right'
       });
     } catch (e) {
+      this.loadingData = false;
       this.toastr.error('Hola, creo que algo salio mal. ', 'Aviso de Yaydoo FrontEnd', {
         timeOut: 10000,
         positionClass: 'toast-bottom-right'
@@ -88,17 +94,20 @@ export class UsersComponent implements OnInit, OnChanges {
   // Función asincrona para obtener la informacion completa del personaje proveniente del apiServices
   async getUserData(user: any) {
     try {
-      let response = await this.usersService.getUserData(user);
+      this.loadingData = true;
+      let response = await this.usersService.getUserData(user.id_user);
       let dataReturn = await response.json();
       let userData = dataReturn.data;
       console.log('userData: ', userData);
       this.usersService.setInfoUserData(userData);
+      this.loadingData = false;
       this.router.navigate(['userdata']);
       this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
         timeOut: 10000,
         positionClass: 'toast-bottom-right'
       });
     } catch (e) {
+      this.loadingData = false;
       this.toastr.error('Hola, creo que algo salio mal. ', 'Aviso de Yaydoo FrontEnd', {
         timeOut: 10000,
         positionClass: 'toast-bottom-right'
