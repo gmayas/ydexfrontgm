@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserdataComponent } from './components/userdata/userdata.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     NavbarComponent,
     UsersComponent,
-    UserdataComponent
+    UserdataComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
