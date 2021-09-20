@@ -1,11 +1,11 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
 import { userModel } from '../../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from "lodash";
-import { findLastIndex } from 'lodash';
 
 @Component({
   selector: 'app-users',
@@ -16,14 +16,21 @@ export class UsersComponent implements OnInit, OnChanges {
 
   // Users
   public Users: any;
+  public delUserSel: any = {};
   //
   userForm!: FormGroup;
   loading = false;
+  confirm = false;
   loadingData = false
   submitted = false;
 
   constructor(public usersService: UsersService, private router: Router, private toastr: ToastrService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder, 
+    private modalService: NgbModal,
+    config: NgbModalConfig) {
+      // customize default values of modals used by this component tree
+    config.backdrop = 'static';
+    config.keyboard = false;
     // Llamado inicial de la funcion
     this.getUsers();
   }
@@ -46,15 +53,37 @@ export class UsersComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.loading = true;
-    this.loadingData = true;
-    //
+    try {
+      //
     // stop here if form is invalid
     if (this.userForm.invalid) {
       return;
     }
-    //save user
+      this.submitted = true;
+      this.loading = true;
+      this.loadingData = true;
+      //save user
+      this.submitted = false;
+      this.confirm = false;
+      this.loadingData = false;
+      this.onReset();
+      this.getUsers();
+      this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      });
+    } catch (e) {
+      this.submitted = false;
+      this.confirm = false;
+      this.loadingData = false;
+      this.toastr.error('Hola, creo que algo salio mal. ', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      })
+      console.log('Error respose: ', e)
+    }
+
+
 
   }
 
@@ -120,5 +149,36 @@ export class UsersComponent implements OnInit, OnChanges {
     this.usersService.selectUser = Object.assign({}, user);
     this.userForm.controls['name_user'].disable({onlySelf: true});
     this.userForm.controls['email_user'].disable({onlySelf: true});
+  }
+
+  deleteUser() {
+    try {
+      this.loadingData = true;
+      this.confirm = true;
+      //Delete user
+      console.log('this.delUserSel:', this.delUserSel);   
+      this.loadingData = false;
+      this.confirm = false;
+      this.onReset();
+      this.getUsers();
+      this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      });
+    } catch (e) {
+      this.loadingData = false;
+      this.confirm = false;
+      this.toastr.error('Hola, creo que algo salio mal. ', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      })
+      console.log('Error respose: ', e)
+    }
+  }
+
+  open(content: any, user: any) {
+    this.delUserSel = Object.assign({}, user);
+    console.log('this.delUserSel:', this.delUserSel);
+    this.modalService.open(content, { centered: true });
   }
 }

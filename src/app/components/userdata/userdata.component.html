@@ -10,44 +10,47 @@
 <body>
     <div class="jumbotron-full">
         <div class="card border-light text-white bg-dark my-2">
-            <h3 class="text-center mt-2">Usuarios de Yaydoo.</h3>
+            <h3 class="text-center mt-2">Datos de usuario.</h3>
         </div>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <div class="card border-light">
                     <div class="card-body">
                       <h5 class="card-title">Agregar/Modificar</h5>
-                      <form [formGroup]="userForm" autocomplete="on">
+                      <form [formGroup]="userDataForm" autocomplete="on">
                         <div class="form-group">
-                            <input type="hidden" formControlName="id_user" class="form-control"
-                                [(ngModel)]="usersService.selectUser.id_user" />
+                            <input type="hidden" formControlName="id_userdata" class="form-control"
+                                [(ngModel)]="usersService.selectUserData.id_userdata" />
                         </div>
                         <div class="form-group">
-                            <label>Nombre de usuario</label>
-                            <input type="text" formControlName="name_user" class="form-control" 
-                                [(ngModel)]="usersService.selectUser.name_user"
-                                [ngClass]="{ 'is-invalid': submitted && f.name_user.errors }" />
-                            <div *ngIf="submitted && f.name_user.errors" class="invalid-feedback">
-                                <div *ngIf="f.name_user.errors.required">Nombre de usuario es requerido</div>
+                            <input type="hidden" formControlName="id_user_userdata" class="form-control"
+                                [(ngModel)]="usersService.selectUserData.id_user_userdata" />
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección de usuario</label>
+                            <input type="text" formControlName="address_userdata" class="form-control" 
+                                [(ngModel)]="usersService.selectUserData.address_userdata"
+                                [ngClass]="{ 'is-invalid': submitted && f.address_userdata.errors }" />
+                            <div *ngIf="submitted && f.address_userdata.errors" class="invalid-feedback">
+                                <div *ngIf="f.address_userdata.errors.required">Dirección de usuario es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" formControlName="email_user" class="form-control"
-                                [(ngModel)]="usersService.selectUser.email_user"
-                                [ngClass]="{ 'is-invalid': submitted && f.email_user.errors }" />
-                            <div *ngIf="submitted && f.email_user.errors" class="invalid-feedback">
-                                <div *ngIf="f.email_user.errors.required">Email es requerido</div>
-                                <div *ngIf="f.email_user.errors.email">Formato de email no válido</div>
+                            <label>Telefono de usuario</label>
+                            <input type="text" formControlName="phone_userdata" class="form-control" 
+                                [(ngModel)]="usersService.selectUserData.phone_userdata"
+                                [ngClass]="{ 'is-invalid': submitted && f.phone_userdata.errors }" />
+                            <div *ngIf="submitted && f.phone_userdata.errors" class="invalid-feedback">
+                                <div *ngIf="f.phone_userdata.errors.required">Telefomo de usuario es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" formControlName="password_user" class="form-control"
-                                [(ngModel)]="usersService.selectUser.password_user"
-                                [ngClass]="{ 'is-invalid': submitted && f.password_user.errors }" />
-                            <div *ngIf="submitted && f.password_user.errors" class="invalid-feedback">
-                                <div *ngIf="f.password_user.errors.required">Password required</div>
+                            <label>Fecha de nacimiento de usuario</label>
+                            <input type="date" formControlName="birthdate_userdata" class="form-control" 
+                                [(ngModel)]="usersService.selectUserData.birthdate_userdata"
+                                [ngClass]="{ 'is-invalid': submitted && f.birthdate_userdata.errors }" />
+                            <div *ngIf="submitted && f.birthdate_userdata.errors" class="invalid-feedback">
+                                <div *ngIf="f.birthdate_userdata.errors.required">Fecha de nacimiento es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -59,36 +62,35 @@
                     </div>
                   </div>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <div class="col-lg-13">
                     <h5 *ngIf="loadingData"><span class="spinner-border spinner-border mr-2"></span>Espere por favor ...</h5>
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <!-- <th scope="col" type="hidden">ID</th> -->
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Password</th>
+                                 <!-- <th scope="col" type="hidden">ID User</th> -->
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Fecha de nacimiento (YYYY-MM-dd)</th>
+                                <th scope="col">Edad</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of Users; let i = index">
-                                <!-- <td scope="row" type="hidden">{{ user?.id_user }}</td> -->
-                                <td scope="row">{{ user?.name_user }}</td>
-                                <td scope="row">{{ user?.email_user }}</td>
-                                <td scope="row">{{ user?.password_user }}</td>
+                            <tr *ngFor="let userData of (UserData | async); let i = index">
+                                <!-- <td scope="row" type="hidden">{{ userData?.id_userdata }}</td> -->
+                                <!-- <td scope="row" type="hidden">{{ userData?.id_user_userdata }}</td> -->
+                                <td scope="row">{{ userData?.address_userdata }}</td>
+                                <td scope="row">{{ userData?.phone_userdata }}</td>
+                                <td scope="row">{{ fechaCorta(userData?.birthdate_userdata) }}</td>
+                                <td scope="row">{{ toEdad(userData?.age_userdata) }}</td>
                                 <td scope="row">
-                                    <a (click)="editUser(user)" class="ml-1">
+                                    <a (click)="editUserData(userData)" class="ml-1">
                                         <i class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top"
                                             title="Editar" data-original-title="Editar">Editar</i>
                                     </a>
-                                    <a (click)="getUserData(user)" class="ml-1">
-                                        <i type="button" class="btn btn-info btn-sm" data-toggle="tooltip"
-                                            data-placement="top" title="Ver datos" data-original-title="Ver datos">Ver
-                                            datos</i>
-                                    </a>
-                                    <a (click)="getUserData(user)" class="ml-1">
+                                    <a (click)="editUserData(userData)" class="ml-1">
                                         <i class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
                                             title="Eliminar" data-original-title="Eliminar">Eliminar</i>
                                     </a>

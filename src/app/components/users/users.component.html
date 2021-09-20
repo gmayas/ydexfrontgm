@@ -16,52 +16,55 @@
             <div class="col-sm-2">
                 <div class="card border-light">
                     <div class="card-body">
-                      <h5 class="card-title">Agregar/Modificar</h5>
-                      <form [formGroup]="userForm" autocomplete="on">
-                        <div class="form-group">
-                            <input type="hidden" formControlName="id_user" class="form-control"
-                                [(ngModel)]="usersService.selectUser.id_user" />
-                        </div>
-                        <div class="form-group">
-                            <label>Nombre de usuario</label>
-                            <input type="text" formControlName="name_user" class="form-control" 
-                                [(ngModel)]="usersService.selectUser.name_user"
-                                [ngClass]="{ 'is-invalid': submitted && f.name_user.errors }" />
-                            <div *ngIf="submitted && f.name_user.errors" class="invalid-feedback">
-                                <div *ngIf="f.name_user.errors.required">Nombre de usuario es requerido</div>
+                        <h5 class="card-title">Agregar/Modificar</h5>
+                        <form [formGroup]="userForm" autocomplete="on">
+                            <div class="form-group">
+                                <input type="hidden" formControlName="id_user" class="form-control"
+                                    [(ngModel)]="usersService.selectUser.id_user" />
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" formControlName="email_user" class="form-control"
-                                [(ngModel)]="usersService.selectUser.email_user"
-                                [ngClass]="{ 'is-invalid': submitted && f.email_user.errors }" />
-                            <div *ngIf="submitted && f.email_user.errors" class="invalid-feedback">
-                                <div *ngIf="f.email_user.errors.required">Email es requerido</div>
-                                <div *ngIf="f.email_user.errors.email">Formato de email no válido</div>
+                            <div class="form-group">
+                                <label>Nombre de usuario</label>
+                                <input type="text" formControlName="name_user" class="form-control"
+                                    [(ngModel)]="usersService.selectUser.name_user"
+                                    [ngClass]="{ 'is-invalid': submitted && f.name_user.errors }" />
+                                <div *ngIf="submitted && f.name_user.errors" class="invalid-feedback">
+                                    <div *ngIf="f.name_user.errors.required">Nombre de usuario es requerido</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" formControlName="password_user" class="form-control"
-                                [(ngModel)]="usersService.selectUser.password_user"
-                                [ngClass]="{ 'is-invalid': submitted && f.password_user.errors }" />
-                            <div *ngIf="submitted && f.password_user.errors" class="invalid-feedback">
-                                <div *ngIf="f.password_user.errors.required">Password required</div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" formControlName="email_user" class="form-control"
+                                    [(ngModel)]="usersService.selectUser.email_user"
+                                    [ngClass]="{ 'is-invalid': submitted && f.email_user.errors }" />
+                                <div *ngIf="submitted && f.email_user.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email_user.errors.required">Email es requerido</div>
+                                    <div *ngIf="f.email_user.errors.email">Formato de email no válido</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <button [disabled]="loading" class="btn btn-primary mr-1" type="button" (click)="onSubmit()">
-                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Save</button>
-                            <button class="btn btn-secondary" type="button" (click)="onReset()">Clear</button>
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" formControlName="password_user" class="form-control"
+                                    [(ngModel)]="usersService.selectUser.password_user"
+                                    [ngClass]="{ 'is-invalid': submitted && f.password_user.errors }" />
+                                <div *ngIf="submitted && f.password_user.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password_user.errors.required">Password required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary mr-1" type="button"
+                                    (click)="onSubmit()">
+                                    <span *ngIf="loading"
+                                        class="spinner-border spinner-border-sm mr-1"></span>Save</button>
+                                <button class="btn btn-secondary" type="button" (click)="onReset()">Clear</button>
+                            </div>
+                        </form>
                     </div>
-                  </div>
+                </div>
             </div>
             <div class="col-sm-10">
                 <div class="col-lg-13">
-                    <h5 *ngIf="loadingData"><span class="spinner-border spinner-border mr-2"></span>Espere por favor ...</h5>
+                    <h5 *ngIf="loadingData"><span class="spinner-border spinner-border mr-2"></span>Espere por favor ...
+                    </h5>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -88,7 +91,7 @@
                                             data-placement="top" title="Ver datos" data-original-title="Ver datos">Ver
                                             datos</i>
                                     </a>
-                                    <a (click)="getUserData(user)" class="ml-1">
+                                    <a (click)="open(content, user)" class="ml-1">
                                         <i class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
                                             title="Eliminar" data-original-title="Eliminar">Eliminar</i>
                                     </a>
@@ -103,6 +106,27 @@
     <div class="footer-copyright text-center text-white bg-dark">© 2021 Copyright:
         <a> GMayaS C:\>Desarrollo en Sistemas.</a>
     </div>
+    <!-- Modal -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Aviso de Yaydoo.</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body card text-white  bg-danger">
+            <h4 class="card-title">Advertencia.</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+        </div>
+        <div class="modal-footer">
+            <button [disabled]="loading || confirm" type="submit" class="btn btn-danger"
+                (click)="deleteUser(); c('Save click')" ngbAutofocus>
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Aceptar</button>
+            <button [disabled]="loading" type="button" class="btn btn-secondary"
+                (click)="d('Cross click')">Cancelar</button>
+        </div>
+    </ng-template>
 </body>
 
 </html>

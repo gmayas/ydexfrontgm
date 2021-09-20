@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { userModel } from '../models/user.model';
+import { userDataModel } from '../models/userdata.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,14 @@ import { userModel } from '../models/user.model';
 export class UsersService {
 
   public selectUser: userModel;
+  public selectUserData: userDataModel;
 
   // Varible de tipo BehaviorSubject para el almacenaje dinamico y que cualquier componente que lo requiara. 
   private infoUserData$: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor() {
     this.selectUser = new userModel;
-    // Se inicializa vacia 
+    this.selectUserData = new userDataModel;
     this.infoUserData$.next(null);
   }
 
