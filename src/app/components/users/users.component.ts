@@ -18,17 +18,18 @@ export class UsersComponent implements OnInit, OnChanges {
   public Users: any;
   public delUserSel: any = {};
   //
-  userForm!: FormGroup;
+  public yyyy = new Date().getFullYear();
+  public userForm!: FormGroup;
   loading = false;
   confirm = false;
   loadingData = false
   submitted = false;
 
   constructor(public usersService: UsersService, private router: Router, private toastr: ToastrService,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     config: NgbModalConfig) {
-      // customize default values of modals used by this component tree
+    // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
     // Llamado inicial de la funcion
@@ -54,24 +55,27 @@ export class UsersComponent implements OnInit, OnChanges {
 
   onSubmit() {
     try {
-      //
-    // stop here if form is invalid
-    if (this.userForm.invalid) {
-      return;
-    }
+      let newData: any = {};
       this.submitted = true;
       this.loading = true;
       this.loadingData = true;
-      //save user
-      this.submitted = false;
-      this.confirm = false;
-      this.loadingData = false;
-      this.onReset();
-      this.getUsers();
-      this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
-        timeOut: 10000,
-        positionClass: 'toast-bottom-right'
-      });
+      // stop here if form is invalid
+      if (this.userForm.invalid) {
+        this.toastr.error('Hola, tienes que completar el formulario.', 'Aviso de Yaydoo FrontEnd', {
+          timeOut: 10000,
+          positionClass: 'toast-bottom-right'
+        });
+        this.loading = false;
+        this.loadingData = false;
+        return;
+      }
+      //Save user data
+      newData = this.userForm.value;
+      if (_.isNil(newData.id_user) || newData.id_user == 0) {
+        this.createUser(newData);
+      } else {
+        this.modifyPassword(newData.id_user, newData);
+      }
     } catch (e) {
       this.submitted = false;
       this.confirm = false;
@@ -82,18 +86,16 @@ export class UsersComponent implements OnInit, OnChanges {
       })
       console.log('Error respose: ', e)
     }
-
-
-
   }
 
   onReset() {
+    this.getUsers();
     this.submitted = false;
     this.loading = false;
     this.loadingData = false;
     this.usersService.selectUser = new userModel();
-    this.userForm.controls['name_user'].enable({onlySelf: true});
-    this.userForm.controls['email_user'].enable({onlySelf: true});
+    this.userForm.controls['name_user'].enable({ onlySelf: true });
+    this.userForm.controls['email_user'].enable({ onlySelf: true });
     this.userForm.reset();
   }
 
@@ -104,7 +106,6 @@ export class UsersComponent implements OnInit, OnChanges {
       let response = await this.usersService.getUsers();
       let dataReturn = await response.json()
       this.Users = dataReturn.data;
-      console.log('Users: ', this.Users);
       this.loadingData = false;
       this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
         timeOut: 10000,
@@ -120,15 +121,11 @@ export class UsersComponent implements OnInit, OnChanges {
     }
   }
 
-  // Función asincrona para obtener la informacion completa del personaje proveniente del apiServices
-  async getUserData(user: any) {
+  // Función asincrona para setirar informacion del usuario
+  async setInfoUser(user: any) {
     try {
       this.loadingData = true;
-      let response = await this.usersService.getUserData(user.id_user);
-      let dataReturn = await response.json();
-      let userData = dataReturn.data;
-      console.log('userData: ', userData);
-      this.usersService.setInfoUserData(userData);
+      await this.usersService.setInfoUser(user);
       this.loadingData = false;
       this.router.navigate(['userdata']);
       this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
@@ -147,16 +144,77 @@ export class UsersComponent implements OnInit, OnChanges {
 
   editUser(user: any) {
     this.usersService.selectUser = Object.assign({}, user);
-    this.userForm.controls['name_user'].disable({onlySelf: true});
-    this.userForm.controls['email_user'].disable({onlySelf: true});
+    this.userForm.controls['name_user'].disable({ onlySelf: true });
+    this.userForm.controls['email_user'].disable({ onlySelf: true });
   }
 
-  deleteUser() {
+  // Función que retorna la informacion de creacion usuario 
+  async createUser(bodyIn: any) {
+    try {
+      this.submitted = true;
+      this.loading = true;
+      this.loadingData = true;
+      //Create user
+      let response = await this.usersService.createUser(bodyIn);
+      let dataReturn = await response.json();
+      this.submitted = false;
+      this.loading = false;
+      this.loadingData = false;
+      this.onReset();
+      this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      });
+    } catch (e) {
+      this.submitted = false;
+      this.loading = false;
+      this.loadingData = false;
+      this.toastr.error('Hola, creo que algo salio mal. ', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      })
+      console.log('Error respose: ', e)
+    }
+  }
+
+  // Función que retorna la informacion de modificación usuario 
+  // Solo mofica el password del suario
+  async modifyPassword(id_user: any, bodyIn: any) {
+    try {
+      this.submitted = true;
+      this.loading = true;
+      this.loadingData = true;
+      //Modify user
+      let response = await this.usersService.modifyPassword(id_user, bodyIn);
+      let dataReturn = await response.json();
+      this.submitted = false;
+      this.loading = false;
+      this.loadingData = false;
+      this.onReset();
+      this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      });
+    } catch (e) {
+      this.submitted = false;
+      this.loading = false;
+      this.loadingData = false;
+      this.toastr.error('Hola, creo que algo salio mal. ', 'Aviso de Yaydoo FrontEnd', {
+        timeOut: 10000,
+        positionClass: 'toast-bottom-right'
+      })
+      console.log('Error respose: ', e)
+    }
+  }
+
+  // Función asincrona para eliminar la informacion completa del usuario
+  async deleteUser() {
     try {
       this.loadingData = true;
       this.confirm = true;
       //Delete user
-      console.log('this.delUserSel:', this.delUserSel);   
+      let response = await this.usersService.deleteUsers(this.delUserSel.id_user);
+      let dataReturn = await response.json();
       this.loadingData = false;
       this.confirm = false;
       this.onReset();
@@ -178,7 +236,6 @@ export class UsersComponent implements OnInit, OnChanges {
 
   open(content: any, user: any) {
     this.delUserSel = Object.assign({}, user);
-    console.log('this.delUserSel:', this.delUserSel);
     this.modalService.open(content, { centered: true });
   }
 }

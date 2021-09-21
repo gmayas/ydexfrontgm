@@ -86,7 +86,7 @@
                                         <i class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top"
                                             title="Editar" data-original-title="Editar">Editar</i>
                                     </a>
-                                    <a (click)="getUserData(user)" class="ml-1">
+                                    <a (click)="setInfoUser(user)" class="ml-1">
                                         <i type="button" class="btn btn-info btn-sm" data-toggle="tooltip"
                                             data-placement="top" title="Ver datos" data-original-title="Ver datos">Ver
                                             datos</i>
@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-copyright text-center text-white bg-dark">© 2021 Copyright:
+    <div class="footer-copyright text-center text-white bg-dark">© {{yyyy}} Copyright:
         <a> GMayaS C:\>Desarrollo en Sistemas.</a>
     </div>
     <!-- Modal -->
@@ -116,12 +116,24 @@
         </div>
         <div class="modal-body card text-white  bg-danger">
             <h4 class="card-title">Advertencia.</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
+            <label class="card-text">¿Está completamente seguro de eliminar a este usuario?</label>
+            <div class="d-flex w-100">
+                <label class="mb-1"><strong>Id User:</strong></label>
+                <label class="mb-1 ml-1"><strong>{{ delUserSel?.id_user }}</strong></label>
+            </div>
+            <div class="d-flex w-100">
+                <label class="mb-1"><strong>Name User:</strong></label>
+                <label class="mb-1 ml-1"><strong>{{ delUserSel?.name_user }}</strong></label>
+            </div>
+            <div class="d-flex w-100">
+                <label class="mb-1"><strong>Email User:</strong></label>
+                <label class="mb-1 ml-1"><strong>{{ delUserSel?.email_user }}</strong></label>
+            </div>
+            <p class="card-text mb-1">Nota: Si da clic en Aceptar, elimina por completo la informacion relacionada con el usuario.</p>
         </div>
         <div class="modal-footer">
             <button [disabled]="loading || confirm" type="submit" class="btn btn-danger"
-                (click)="deleteUser(); c('Save click')" ngbAutofocus>
+                (click)="deleteUser(); c('Delete click')" ngbAutofocus>
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Aceptar</button>
             <button [disabled]="loading" type="button" class="btn btn-secondary"
                 (click)="d('Cross click')">Cancelar</button>
