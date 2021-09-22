@@ -60,7 +60,7 @@ En esta vista puede agregar, modificar o eliminar los datos del suario que crea 
 
 Yaydoo BackEnd es una API Rest que fue creada con NodeJS versión 14, con ECMAScript 6, TypeScript y se conecta a una Base de datos PostgreSQL.
 
-Si desean tener más informacion de Yaydoo BackEnde, solo de clic en el siguiente link:
+Si desean tener más informacion de Yaydoo BackEnd, solo de clic en el siguiente link:
 
 https://github.com/gmayas/ydexbackgm.git
 
