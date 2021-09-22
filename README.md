@@ -1,27 +1,68 @@
 # Ydexfrontgm
+## Yaydoo FrontEnd
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.6.
+Yaydoo FrontEnd es una aplicación web que fue creada como resultado a la prueba técnica que Yaydoo solicita a un postulante a una vacante de desarrollo de software, en esta caso nuestra solicitud de vacantes es Desarrollador BackEnd, pero no significa que no podamos participar en desarrollos Frontend.
 
-## Development server
+Yaydoo FrontEnd esta creado en Angular Versión 12, con Bootstrap y Bootswatch, como framewoks de controles y estilos.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Para tener acceso al sistema en línea, de clic en el siguiente link:
 
-## Code scaffolding
+https://gmayas.github.io/ydexfrontgm/
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![](/images/img01.png)
 
-## Build
+En base a la prueba asignada, decidí crear un solo FrontEnd para mostrar los puntos:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## ALGORITMOS
+### Algoritmo 01.
 
-## Running unit tests
+Un revisor califica dos desafíos, otorgando puntos en una escala del 1 al 100 para tres categorías: claridad del problema , originalidad y dificultad .
+La calificación del desafío de Alice es a = (a[0], a[1], a[2]) , y la calificación del desafío de Bob es b = (b[0], b[1], b[2]) ...
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Que en el cual encontrar en la opción del Navbar Algoritmo01. 
 
-## Running end-to-end tests
+![](/images/img02.png)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Algoritmo 02.
 
-## Further help
+Dada una cadena de texto (string), obtener el número de veces que se repite cada palabra del texto. El texto puede tener puntos y comas, puede tener palabras en mayúsculas o minúsculas. Devolver resultado en JSON ...
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Que en el cual encontrar en la opción del Navbar Algoritmo02.
+
+![](/images/img03.png)
+
+## CRUD DE USUARIOS
+
+En base al o solicitado:
+
+Con el lenguaje de tu preferencia, realiza un CRUD de usuarios con el modelo MVC. El BackEnd debe proveer al FrontEnd por medio de API Rest.
+
+La tabla usuarios deberá tener los siguientes campos:
+
+ID | Name | Email | Password
+
+Crea una tabla con información de Personal del Usuario (Dirección, Teléfono, Fecha de Nacimiento). En una función o controlador deberás calcular la edad del usuario en base a la fecha de nacimiento. Registra 100 usuarios de prueba con información personal en la base de datos. En la parte del FrontEnd se deberá mostrar un listado con los usuarios registrados en la base de datos: Nombre, email, dirección, teléfono, fecha de nacimiento y edad, los cuales deberán poder ser editados o eliminados.
+
+Que en el cual lo pondara en contrar en la opcion Usuario en el NavBar:
+
+![](/images/img04.png)
+
+En esta vista puede agregar y eliminar usuarios, con respecto a la opción de editar, solo se puede editar y modificar el Password. 
+
+En la opción ver datos, se presenta la siguiente vista:
+
+![](/images/img05.png)
+
+
+En esta vista puede agregar, modificar o eliminar los datos que crea necesario del usuario. 
+
+## Yaydoo BackEnd
+
+Yaydoo BackEnd es una API Rest que fue creada con NodeJS versión 14, con ECMAScript 6, TypeScript y se conecta a una Base de datos PostgreSQL.
+
+Si desean tener más informacion de Yaydoo BackEndes, solo de clic en el siguiente link:
+
+https://github.com/gmayas/ydexbackgm.git
+
+`© 2021 Copyright: GMayaS C:\>Desarrollo en Sistemas.`
+
