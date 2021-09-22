@@ -6,6 +6,7 @@
     "dev": "ng serve",
     "start": "ng serve",
     "build": "ng build",
+    "postinstall": "ng build --aot --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
