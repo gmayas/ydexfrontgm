@@ -24,6 +24,7 @@ export class UsersComponent implements OnInit, OnChanges {
   confirm = false;
   loadingData = false
   submitted = false;
+  editing = true;
 
   constructor(public usersService: UsersService, private router: Router, private toastr: ToastrService,
     private formBuilder: FormBuilder,
@@ -93,6 +94,7 @@ export class UsersComponent implements OnInit, OnChanges {
     this.submitted = false;
     this.loading = false;
     this.loadingData = false;
+    this.editing = true;
     this.usersService.selectUser = new userModel();
     this.userForm.controls['name_user'].enable({ onlySelf: true });
     this.userForm.controls['email_user'].enable({ onlySelf: true });
@@ -143,6 +145,7 @@ export class UsersComponent implements OnInit, OnChanges {
   }
 
   editUser(user: any) {
+    this.editing = false;
     this.usersService.selectUser = Object.assign({}, user);
     this.userForm.controls['name_user'].disable({ onlySelf: true });
     this.userForm.controls['email_user'].disable({ onlySelf: true });

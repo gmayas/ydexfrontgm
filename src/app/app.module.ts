@@ -12,6 +12,8 @@ import { UsersComponent } from './components/users/users.component';
 import { UserdataComponent } from './components/userdata/userdata.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './components/about/about.component';
+import { Algoritmo01Component } from './components/algoritmo01/algoritmo01.component';
+import { Algoritmo02Component } from './components/algoritmo02/algoritmo02.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AboutComponent } from './components/about/about.component';
     NavbarComponent,
     UsersComponent,
     UserdataComponent,
-    AboutComponent
+    AboutComponent,
+    Algoritmo01Component,
+    Algoritmo02Component
   ],
   imports: [
     BrowserModule,
