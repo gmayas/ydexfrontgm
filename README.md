@@ -11,7 +11,7 @@ https://gmayas.github.io/ydexfrontgm/
 
 ![](/images/img01.png)
 
-En base a la prueba asignada, decidí crear un solo FrontEnd para mostrar los puntos:
+En base a la prueba asignada, decidí crear un solo FrontEnd para mostrar todos los puntos que requerian programación.
 
 ## ALGORITMOS
 ### Algoritmo 01.
