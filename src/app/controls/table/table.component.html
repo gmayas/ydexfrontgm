@@ -1,0 +1,36 @@
+<div>
+    <table mat-table [dataSource]="_dataSource" class="mat-elevation-z8 table-100" matSort
+    matSortActive="{{orderBy}}" matSortDirection="asc">
+  
+    <ng-container *ngFor="let column of tableColumns">
+      <ng-container *ngIf="column?.campo!=null" matColumnDef="{{column.campo}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column?.titulo}} </th>
+        <td mat-cell [ngClass]="{'cursor-pointer':selectable}"
+        (click)="selectable && OnSelection(element)" *matCellDef="let element;">
+          <div *ngIf="column?.cellTemplate==null">
+            {{element[column?.campo]}}
+          </div>
+          <div *ngIf="column?.cellTemplate">
+            <ng-container *ngTemplateOutlet="column.cellTemplate;context:{item:element,columnName:column.campo}"></ng-container>
+          </div>
+        </td>
+      </ng-container>
+  
+      <ng-container *ngIf="column?.campo==null" matColumnDef="Acciones">
+          <th mat-header-cell *matHeaderCellDef class="btn-accion"> Acciones </th>
+          <td mat-cell *matCellDef="let element;" class="btn-accions">
+            <div *ngIf="column?.cellTemplate">
+              <ng-container *ngTemplateOutlet="column?.cellTemplate;context:{item:element}"></ng-container>
+            </div>
+          </td>
+      </ng-container>
+    </ng-container>
+      <tr mat-header-row *matHeaderRowDef="headerColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: headerColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" colspan="10">Sin Resultados <span *ngIf="search.length>0"> para "{{search}}"</span></td>
+      </tr>
+  </table>
+  <mat-paginator #pag [length]="dataSize" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="page_OnChange($event)" aria-label="Select page" aria-label="Select page" showFirstLastButtons></mat-paginator>
+  </div>
+  

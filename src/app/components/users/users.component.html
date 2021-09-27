@@ -10,7 +10,20 @@
 <body>
     <div class="jumbotron-full">
         <div class="card border-light text-white bg-dark my-2">
-            <h3 class="text-center mt-2">Usuarios de Yaydoo.</h3>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="text-center mat-label-26 mt-3">Usuarios de Yaydoo:</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="d-flex flex-row-reverse">
+                        <mat-form-field>
+                            <mat-label>Buscar</mat-label>
+                            <input matInput [(ngModel)]="searchValue" [name]="'search'" />
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
@@ -60,7 +73,7 @@
                             <div class="form-group">
                                 <div *ngIf="!editing" class="alert alert-dismissible alert-primary">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    <strong>Solo podra editar el password</strong>  
+                                    <strong>Solo podra editar el password</strong>
                                 </div>
                             </div>
                         </form>
@@ -69,42 +82,12 @@
             </div>
             <div class="col-sm-10">
                 <div class="col-lg-13">
-                    <h5 *ngIf="loadingData"><span class="spinner-border spinner-border mr-2"></span>Espere por favor ...
-                    </h5>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <!-- <th scope="col" type="hidden">ID</th> -->
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let user of Users; let i = index">
-                                <!-- <td scope="row" type="hidden">{{ user?.id_user }}</td> -->
-                                <td scope="row">{{ user?.name_user }}</td>
-                                <td scope="row">{{ user?.email_user }}</td>
-                                <td scope="row">{{ user?.password_user }}</td>
-                                <td scope="row">
-                                    <a (click)="editUser(user)" class="ml-1">
-                                        <i class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top"
-                                            title="Editar" data-original-title="Editar">Editar</i>
-                                    </a>
-                                    <a (click)="setInfoUser(user)" class="ml-1">
-                                        <i type="button" class="btn btn-info btn-sm" data-toggle="tooltip"
-                                            data-placement="top" title="Ver datos" data-original-title="Ver datos">Ver
-                                            datos</i>
-                                    </a>
-                                    <a (click)="open(content, user)" class="ml-1">
-                                        <i class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                            title="Eliminar" data-original-title="Eliminar">Eliminar</i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div *ngIf="loadingData"><span class="spinner-border mr-2"></span>Espere por favor ...</div>
+                    <div *ngIf="!loadingData" class="lmn-scrollbar-x">
+                        <control-table [search]="searchValue" [dataSource]="dataSource" [tableColumns]="columnas"
+                            [dataSize]="dataSize">
+                        </control-table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -112,6 +95,27 @@
     <div class="footer-copyright text-center text-white bg-dark">© {{yyyy}} Copyright:
         <a> GMayaS C:\>Desarrollo en Sistemas.</a>
     </div>
+    <!-- template -->
+    <ng-template #accionTemplate let-columnVal="item">
+        <a (click)="editUser(columnVal)">
+            <i class="btn btn-warning btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="Editar"
+                data-original-title="Editar">
+                <mat-icon>edit</mat-icon>
+            </i>
+        </a>
+        <a (click)="setInfoUser(columnVal)">
+            <i type="button" class="btn btn-info btn-sm ml-2" data-toggle="tooltip" data-placement="top"
+                title="Ver datos" data-original-title="Ver datos">
+                <mat-icon>visibility</mat-icon>
+            </i>
+        </a>
+        <a (click)="open(content, columnVal)">
+            <i class="btn btn-danger btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                data-original-title="Eliminar">
+                <mat-icon>delete_forever</mat-icon>
+            </i>
+        </a>
+    </ng-template>
     <!-- Modal -->
     <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">

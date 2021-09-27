@@ -1,4 +1,6 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, TemplateRef } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,18 +15,27 @@ import * as _ from "lodash";
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit, OnChanges {
-
+  //
+  public yyyy = new Date().getFullYear();
   // Users
   public Users: any;
   public delUserSel: any = {};
-  //
-  public yyyy = new Date().getFullYear();
   public userForm!: FormGroup;
-  loading = false;
-  confirm = false;
-  loadingData = false
-  submitted = false;
-  editing = true;
+  //
+  public loading = false;
+  public confirm = false;
+  public loadingData = false
+  public submitted = false;
+  public editing = true;
+  //
+  public columnas: any = [];;
+  public data = [];
+  public dataSize = 0;
+  public dataSource: any = new MatTableDataSource();
+  public searchValue: string | any = '';
+  public pageEvent: PageEvent | any;
+  //
+  @ViewChild('accionTemplate', { static: true }) accionTemplate: TemplateRef<any> | any;
 
   constructor(public usersService: UsersService, private router: Router, private toastr: ToastrService,
     private formBuilder: FormBuilder,
@@ -33,8 +44,6 @@ export class UsersComponent implements OnInit, OnChanges {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
-    // Llamado inicial de la funcion
-    this.getUsers();
   }
 
   ngOnInit(): void {
@@ -44,6 +53,8 @@ export class UsersComponent implements OnInit, OnChanges {
       email_user: [{ value: '', disabled: false }, [Validators.required, Validators.email]],
       password_user: [{ value: '', disabled: false }, [Validators.required]]
     });
+    this.getTableColums();
+    this.getUsers();
   }
 
   // convenience getter for easy access to form fields
@@ -51,7 +62,7 @@ export class UsersComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     // Llamado inicial de la funcion
-    this.getUsers();
+    //this.getUsers();
   }
 
   onSubmit() {
@@ -101,6 +112,16 @@ export class UsersComponent implements OnInit, OnChanges {
     this.userForm.reset();
   }
 
+  getTableColums() {
+    //this.columns = ['Nombre', 'Email', 'Password'];
+    this.columnas = [
+      { campo: 'name_user', titulo: 'Nombre', cellTemplate: null },
+      { campo: 'email_user', titulo: 'Emial', cellTemplate: null },
+      { campo: 'password_user', titulo: 'Password', cellTemplate: null },
+      { campo: null, titulo: 'Acciones', cellTemplate: this.accionTemplate },
+    ];
+  }
+
   // Función asincrona para obtener el listado de los usuarios
   async getUsers() {
     try {
@@ -108,6 +129,7 @@ export class UsersComponent implements OnInit, OnChanges {
       let response = await this.usersService.getUsers();
       let dataReturn = await response.json()
       this.Users = dataReturn.data;
+      this.dataSource = new MatTableDataSource(this.Users);
       this.loadingData = false;
       this.toastr.success('Hola, excelente.', 'Aviso de Yaydoo FrontEnd', {
         timeOut: 10000,

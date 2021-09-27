@@ -6,7 +6,6 @@
     "dev": "ng serve",
     "start": "ng serve",
     "build": "ng build",
-    "postinstall": "ng build --aot --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -14,10 +13,12 @@
   "proxy": "https://appydexbackgm.herokuapp.com/api/user",
   "dependencies": {
     "@angular/animations": "~12.2.0",
+    "@angular/cdk": "^12.2.7",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
     "@angular/forms": "~12.2.0",
+    "@angular/material": "^12.2.7",
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
@@ -25,6 +26,7 @@
     "bootstrap": "^5.1.1",
     "bootswatch": "^5.1.1",
     "dotenv": "^10.0.0",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "ngx-toastr": "^14.1.3",
     "rxjs": "~6.6.0",

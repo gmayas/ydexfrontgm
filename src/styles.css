@@ -1,3 +1,7 @@
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
 .contenedor{
     display: flex;
     border: 1px solid black;
@@ -6,3 +10,30 @@
     justify-content: center;
     align-items: center
   }
+
+  table {
+    width: 100%;
+ }
+  
+.mat-row .mat-cell {
+   border-bottom: 1px collapse;
+   border-top: 1px collapse; 
+   cursor: pointer;
+}
+ 
+.mat-row:hover .mat-cell {
+   background-color: #303030;
+}
+
+.mat-label-26 {
+   font-size: 26px;
+   height: 26px;
+}
+
+.mat-label-16 {
+   font-size: 16px;
+   height: 16px;
+}
+
+
+
