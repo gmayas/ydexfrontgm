@@ -53,7 +53,7 @@ En la opción ver datos, se presenta la siguiente vista:
 
 ![](/images/img05.png)
 
-En esta vista puede agregar, modificar o eliminar los datos del suario que crea necesario. 
+En esta vista puede agregar, modificar o eliminar los datos del usuario que crea necesario. 
 
 Nota: La primera ejecución de consulta tarda de 3 a 5 segundos, esto es debido que el servicio donde esta publicado el BackEnd, se encuentra en estado inactivo, una vez respondiendo, se pone en estado activo y cada consulta se ejecuta cada vez más rápido. 
 ## Yaydoo BackEnd
