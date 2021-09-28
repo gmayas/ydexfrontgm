@@ -64,14 +64,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button [disabled]="loading" class="btn btn-primary mr-1" type="button"
+                                <button [disabled]="loading" class="btn btn-primary mt-1 me-1" type="button"
                                     (click)="onSubmit()">
                                     <span *ngIf="loading"
-                                        class="spinner-border spinner-border-sm mr-1"></span>Save</button>
-                                <button class="btn btn-secondary" type="button" (click)="onReset()">Clear</button>
+                                        class="spinner-border spinner-border-sm mt-1 me-1"></span>Save</button>
+                                <button class="btn btn-secondary mt-1 me-1" type="button" (click)="onReset()">Clear</button>
                             </div>
                             <div class="form-group">
-                                <div *ngIf="!editing" class="alert alert-dismissible alert-primary">
+                                <div *ngIf="!editing" class="alert alert-dismissible alert-primary mt-1">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                     <strong>Solo podra editar el password</strong>
                                 </div>
@@ -82,7 +82,7 @@
             </div>
             <div class="col-sm-10">
                 <div class="col-lg-13">
-                    <div *ngIf="loadingData"><span class="spinner-border mr-2"></span>Espere por favor ...</div>
+                    <div *ngIf="loadingData"><span class="spinner-border me-2"></span>Espere por favor ...</div>
                     <div *ngIf="!loadingData" class="lmn-scrollbar-x">
                         <control-table [search]="searchValue" [dataSource]="dataSource" [tableColumns]="columnas"
                             [dataSize]="dataSize">
@@ -98,19 +98,19 @@
     <!-- template -->
     <ng-template #accionTemplate let-columnVal="item">
         <a (click)="editUser(columnVal)">
-            <i class="btn btn-warning btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="Editar"
+            <i class="btn btn-warning btn-sm ms-2" data-toggle="tooltip" data-placement="top" title="Editar"
                 data-original-title="Editar">
                 <mat-icon>edit</mat-icon>
             </i>
         </a>
         <a (click)="setInfoUser(columnVal)">
-            <i type="button" class="btn btn-info btn-sm ml-2" data-toggle="tooltip" data-placement="top"
+            <i type="button" class="btn btn-info btn-sm ms-2" data-toggle="tooltip" data-placement="top"
                 title="Ver datos" data-original-title="Ver datos">
                 <mat-icon>visibility</mat-icon>
             </i>
         </a>
         <a (click)="open(content, columnVal)">
-            <i class="btn btn-danger btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="Eliminar"
+            <i class="btn btn-danger btn-sm ms-2" data-toggle="tooltip" data-placement="top" title="Eliminar"
                 data-original-title="Eliminar">
                 <mat-icon>delete_forever</mat-icon>
             </i>
@@ -129,15 +129,15 @@
             <label class="card-text">¿Está completamente seguro de eliminar a este usuario?</label>
             <div class="d-flex w-100">
                 <label class="mb-1"><strong>Id User:</strong></label>
-                <label class="mb-1 ml-1"><strong>{{ delUserSel?.id_user }}</strong></label>
+                <label class="mb-1 ms-1"><strong>{{ delUserSel?.id_user }}</strong></label>
             </div>
             <div class="d-flex w-100">
                 <label class="mb-1"><strong>Name User:</strong></label>
-                <label class="mb-1 ml-1"><strong>{{ delUserSel?.name_user }}</strong></label>
+                <label class="mb-1 ms-1"><strong>{{ delUserSel?.name_user }}</strong></label>
             </div>
             <div class="d-flex w-100">
                 <label class="mb-1"><strong>Email User:</strong></label>
-                <label class="mb-1 ml-1"><strong>{{ delUserSel?.email_user }}</strong></label>
+                <label class="mb-1 ms-1"><strong>{{ delUserSel?.email_user }}</strong></label>
             </div>
             <p class="card-text mb-1">Nota: Si da clic en Aceptar, elimina por completo la informacion relacionada con
                 el usuario.</p>
@@ -145,7 +145,7 @@
         <div class="modal-footer">
             <button [disabled]="loading || confirm" type="submit" class="btn btn-danger"
                 (click)="deleteUser(); c('Delete click')" ngbAutofocus>
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Aceptar</button>
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Aceptar</button>
             <button [disabled]="loading" type="button" class="btn btn-secondary"
                 (click)="d('Cross click')">Cancelar</button>
         </div>

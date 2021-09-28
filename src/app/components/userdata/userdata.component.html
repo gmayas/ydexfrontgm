@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-sm-2">
                     <a href="users">
-                        <i class="btn btn-warning btn-sm ml-2 mt-3" data-toggle="tooltip" data-placement="top" title="Back"
+                        <i class="btn btn-warning btn-sm ms-2 mt-3" data-toggle="tooltip" data-placement="top" title="Back"
                             data-original-title="Back">
                             <mat-icon>arrow_back</mat-icon> 
                         </i>
@@ -77,11 +77,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button [disabled]="loading" class="btn btn-primary mr-1" type="button"
+                                <button [disabled]="loading" class="btn btn-primary mt-1 me-1" type="button"
                                     (click)="onSubmit()">
                                     <span *ngIf="loading"
-                                        class="spinner-border spinner-border-sm mr-1"></span>Save</button>
-                                <button class="btn btn-secondary" type="button" (click)="onReset()">Clear</button>
+                                        class="spinner-border spinner-border-sm mt-1 me-1"></span>Save</button>
+                                <button class="btn btn-secondary mt-1 me-1" type="button" (click)="onReset()">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -89,7 +89,7 @@
             </div>
             <div class="col-sm-9">
                 <div class="col-lg-13">
-                    <div *ngIf="loadingData"><span class="spinner-border mr-2"></span>Espere por favor ...</div>
+                    <div *ngIf="loadingData"><span class="spinner-border me-2"></span>Espere por favor ...</div>
                     <div *ngIf="!loadingData" class="lmn-scrollbar-x">
                         <control-table [search]="searchValue" [dataSource]="dataSource" [tableColumns]="columnas"
                             [dataSize]="dataSize">
@@ -105,13 +105,13 @@
     <!-- template -->
     <ng-template #accionTemplate let-columnVal="item">
         <a (click)="editUserData(columnVal)">
-            <i class="btn btn-warning btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="Editar"
+            <i class="btn btn-warning btn-sm ms-2" data-toggle="tooltip" data-placement="top" title="Editar"
                 data-original-title="Editar">
                 <mat-icon>edit</mat-icon>
             </i>
         </a>
         <a (click)="open(content, columnVal)">
-            <i class="btn btn-danger btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="Eliminar"
+            <i class="btn btn-danger btn-sm ms-2" data-toggle="tooltip" data-placement="top" title="Eliminar"
                 data-original-title="Eliminar">
                 <mat-icon>delete_forever</mat-icon>
             </i>
@@ -130,25 +130,25 @@
             <label class="card-text">¿Está completamente seguro de eliminar estos datos?</label>
             <div class="d-flex w-100">
                 <label class="mb-1"><strong>Dirección:</strong></label>
-                <label class="mb-1 ml-1"><strong>{{ delUserDataSel?.address_userdata }}</strong></label>
+                <label class="mb-1 ms-1"><strong>{{ delUserDataSel?.address_userdata }}</strong></label>
             </div>
             <div class="d-flex w-100">
                 <label class="mb-1"><strong>Teléfono:</strong></label>
-                <label class="mb-1 ml-1"><strong>{{ delUserDataSel?.phone_userdata }}</strong></label>
+                <label class="mb-1 ms-1"><strong>{{ delUserDataSel?.phone_userdata }}</strong></label>
             </div>
             <div class="d-flex w-100">
                 <label class="mb-1"><strong>Fecha de nacimiento:</strong></label>
-                <label class="mb-1 ml-1"><strong>{{ delUserDataSel?.birthdate_userdata }}</strong></label>
+                <label class="mb-1 ms-1"><strong>{{ delUserDataSel?.birthdate_userdata }}</strong></label>
             </div>
             <div class="d-flex w-100">
                 <label class="mb-1"><strong>Edad:</strong></label>
-                <label class="mb-1 ml-1"><strong>{{ delUserDataSel?.age_userdata }}</strong></label>
+                <label class="mb-1 ms-1"><strong>{{ delUserDataSel?.age_userdata }}</strong></label>
             </div>
         </div>
         <div class="modal-footer">
             <button [disabled]="loading || confirm" type="submit" class="btn btn-danger"
                 (click)="deleteUserData(); c('Delete click')" ngbAutofocus>
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Aceptar</button>
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Aceptar</button>
             <button [disabled]="loading" type="button" class="btn btn-secondary"
                 (click)="d('Cross click')">Cancelar</button>
         </div>

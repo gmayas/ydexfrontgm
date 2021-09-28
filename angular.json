@@ -32,7 +32,8 @@
             "styles": [
               "src/styles.css",
               "src/css/gmayas.css",
-              "node_modules/bootswatch/dist/darkly/bootstrap.min.css",
+              "src/css/bootstrap.css", 
+              "src/css/darkly.bootstrap.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
