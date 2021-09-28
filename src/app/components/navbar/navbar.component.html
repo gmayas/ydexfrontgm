@@ -1,25 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="">Navbar</a>
+      <a class="navbar-brand" (click)="goHome()">Navbar</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="">Home</a>
+            <a class="nav-link" (click)="goHome()">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="alg01">Algoritmo 01</a>
+            <a class="nav-link" (click)="goAlg01()">Algoritmo 01</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="alg02">Algoritmo 02</a>
+            <a class="nav-link" (click)="goAlg02()">Algoritmo 02</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="users">Usuarios</a>
+            <a class="nav-link" (click)="goUsers()">Usuarios</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about">About</a>
+            <a class="nav-link" (click)="goAbout()">About</a>
           </li>
         </ul>
       </div>
