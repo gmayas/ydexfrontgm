@@ -31,8 +31,9 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/css/gmayas.css",
+              "src/css/bootstrap.css", 
               "src/css/darkly.bootstrap.css",
+              "src/css/gmayas.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
